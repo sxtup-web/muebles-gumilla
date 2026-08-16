@@ -1,0 +1,52 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  nombre: string;
+  categoria: string;
+  precio_referencial: number;
+  medida_principal?: string;
+  imagen: { imagen: any; alt: string };
+  url: string;
+}
+
+const { nombre, categoria, precio_referencial, medida_principal, imagen, url } = Astro.props;
+
+const formatPrice = (price: number) => {
+  return new Intl.NumberFormat('es-CL', {
+    style: 'currency',
+    currency: 'CLP',
+    maximumFractionDigits: 0,
+  }).format(price);
+};
+---
+
+<a href={url} class="group flex flex-col gap-4">
+  <div class="relative aspect-[4/5] overflow-hidden bg-surface-container rounded-sm">
+    <Image 
+      src={imagen.imagen} 
+      alt={imagen.alt || `Fotografía de ${nombre}`} 
+      class="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+      width={400}
+      height={500}
+    />
+    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"></div>
+  </div>
+  
+  <div class="flex flex-col gap-1">
+    <div class="flex justify-between items-start gap-4">
+      <h3 class="font-serif text-lg font-medium text-on-background">{nombre}</h3>
+      <span class="font-sans text-on-surface-variant whitespace-nowrap">{formatPrice(precio_referencial)}</span>
+    </div>
+    
+    <div class="flex items-center gap-2 text-sm text-outline">
+      <span class="uppercase tracking-wider text-xs font-semibold">{categoria}</span>
+      {medida_principal && (
+        <>
+          <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+          <span>{medida_principal}</span>
+        </>
+      )}
+    </div>
+  </div>
+</a>

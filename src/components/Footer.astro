@@ -1,0 +1,45 @@
+---
+import Button from './Button.astro';
+import { Image } from 'astro:assets';
+import { siteConfig } from '../config/site';
+import logoActual from '../assets/logo-actual.png';
+---
+<footer class="bg-paper-surface border-t border-outline/10 py-16 mt-section-gap">
+  <div class="max-w-[1440px] mx-auto px-margin-mobile lg:px-margin-desktop grid grid-cols-1 md:grid-cols-3 gap-12">
+    <div class="flex flex-col gap-4">
+      <Image src={logoActual} alt="Muebles Gumilla Logo" height={64} width={64} class="h-16 w-16 object-cover rounded-full mb-2" />
+      <p class="font-sans text-on-surface-variant max-w-sm">
+        {siteConfig.description}
+      </p>
+    </div>
+    
+    <div class="flex flex-col gap-4">
+      <h4 class="font-sans font-semibold uppercase tracking-widest text-sm text-on-background">Enlaces</h4>
+      <nav class="flex flex-col gap-2">
+        <a href="/" class="text-on-surface-variant hover:text-primary transition-colors">Inicio</a>
+        <a href="/catalogo" class="text-on-surface-variant hover:text-primary transition-colors">Catálogo</a>
+        <a href="/sobre-el-taller" class="text-on-surface-variant hover:text-primary transition-colors">Sobre el taller</a>
+      </nav>
+    </div>
+    
+    <div class="flex flex-col gap-4">
+      <h4 class="font-sans font-semibold uppercase tracking-widest text-sm text-on-background">Contacto</h4>
+      <div class="flex flex-col gap-3 items-start">
+        <Button href={`https://wa.me/${siteConfig.whatsappNumber}`} variant="primary" isExternal={true}>
+          Contactar por WhatsApp
+        </Button>
+        <a href={siteConfig.instagramUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors mt-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          Síguenos en Instagram
+        </a>
+        <p class="text-sm text-on-surface-variant mt-2 flex items-start gap-2 max-w-[200px]">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 mt-0.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span set:html={siteConfig.address.replace(', ', ',<br/>')} />
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-[1440px] mx-auto px-margin-mobile lg:px-margin-desktop mt-12 pt-8 border-t border-outline/10 text-sm text-on-surface-variant flex justify-between items-center">
+    <p>&copy; {new Date().getFullYear()} Muebles Gumilla. Santiago de Chile.</p>
+  </div>
+</footer>

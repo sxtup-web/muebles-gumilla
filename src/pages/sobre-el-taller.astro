@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import logoAntiguo from '../assets/logo-antiguo.jpg';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout title="Sobre el taller - Muebles Gumilla" description="Conoce la historia detrás de nuestro taller artesanal en Santiago de Chile.">
+  <div class="max-w-[800px] mx-auto px-margin-mobile lg:px-margin-desktop py-section-gap">
+    <div class="text-center mb-16">
+      <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl text-on-background tracking-tight mb-4">Sobre el taller</h1>
+      <p class="font-serif italic text-primary/80 mb-6">6 años de oficio &middot; 100% artesanal &middot; Hecho a mano en Santiago</p>
+      <hr class="w-16 border-t-2 border-primary/30 mx-auto my-8" />
+      <p class="font-sans text-lg text-on-surface-variant max-w-2xl mx-auto">
+        Seis años de oficio, dedicación y respeto por la madera natural en el corazón de Santiago.
+      </p>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-12 items-center mb-16">
+      <div class="w-full md:w-1/2 flex justify-center">
+        <Image src={logoAntiguo} alt="Logo original de Muebles Gumilla" class="rounded-full object-cover shadow-md aspect-square w-64 md:w-80" width={400} height={400} />
+      </div>
+      <div class="w-full md:w-1/2 space-y-6 text-on-surface-variant font-sans text-lg leading-relaxed">
+        <p>
+          Muebles Gumilla nació hace más de seis años como un proyecto personal impulsado por el amor a la carpintería artesanal. Lo que comenzó en un pequeño espacio, hoy es un taller consolidado que mantiene viva la esencia del trabajo hecho a mano.
+        </p>
+        <p>
+          Nos alejamos de la fabricación en serie. Cada pieza que sale de nuestro taller es construida bajo pedido, respetando los tiempos de la madera, aplicando técnicas tradicionales de ensamble y utilizando acabados naturales que resaltan la veta auténtica de cada tabla.
+        </p>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-low p-8 rounded-2xl border border-outline/10 text-center">
+      <h2 class="font-serif text-2xl text-on-background mb-4">Dónde encontrarnos</h2>
+      <p class="font-sans text-on-surface-variant mb-6 max-w-md mx-auto">
+        Nuestro taller está ubicado en el centro histórico de la ciudad. Recibimos visitas únicamente con agenda previa para poder dedicarte el tiempo que tu proyecto merece.
+      </p>
+      <div class="inline-flex items-center gap-2 bg-surface text-on-background px-4 py-2 rounded-full border border-outline/10 font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        {siteConfig.address}
+      </div>
+    </div>
+  </div>
+</BaseLayout>

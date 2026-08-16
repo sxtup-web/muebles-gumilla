@@ -1,0 +1,38 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "src/assets/productos"
+public_folder: "../../assets/productos"
+
+collections:
+  - name: "productos"
+    label: "Productos"
+    folder: "src/content/productos"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Nombre", name: "nombre", widget: "string"}
+      - {label: "Descripción Corta", name: "descripcion_corta", widget: "text"}
+      - {label: "Categoría", name: "categoria", widget: "select", options: ["camas", "estantes", "mesas", "sillas", "otros"]}
+      - {label: "Precio Referencial", name: "precio_referencial", widget: "number"}
+      - {label: "Nota de Precio", name: "precio_nota", widget: "string", default: "Precio referencial. Medidas y materiales personalizables — precio final se coordina por WhatsApp"}
+      - label: "Medidas"
+        name: "medidas"
+        widget: "object"
+        fields:
+          - {label: "Alto", name: "alto", widget: "number"}
+          - {label: "Ancho", name: "ancho", widget: "number"}
+          - {label: "Profundidad", name: "profundidad", widget: "number"}
+          - {label: "Unidad", name: "unidad", widget: "string", default: "cm"}
+          - {label: "Personalizable", name: "personalizable", widget: "boolean", default: true}
+      - {label: "Descripción Larga", name: "descripcion_larga", widget: "text"}
+      - {label: "Material", name: "material", widget: "string"}
+      - {label: "Tiempo Fabricación", name: "tiempo_fabricacion_estimado", widget: "string"}
+      - label: "Imágenes"
+        name: "imagenes"
+        widget: "list"
+        fields:
+          - {label: "Imagen", name: "imagen", widget: "image"}
+          - {label: "Alt Text", name: "alt", widget: "string"}
+      - {label: "Destacado", name: "destacado", widget: "boolean", default: false}

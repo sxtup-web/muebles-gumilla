@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { getCollection } from 'astro:content';
+
+const productos = await getCollection('productos');
+
+// Obtener categoría de los query params (client-side filtrado o SSG filtrado simple en cliente no funciona así, así que generamos todas y ocultamos/mostramos con JS o renderizamos servidor).
+// Dado que es SSG, podemos hacer un filtro visual con JS o páginas separadas.
+// Por simplicidad para el catálogo inicial: Renderizamos todo y filtramos por JS.
+const categorias = [...new Set(productos.map((prod) => prod.data.categoria))].sort();
+---
+
+<BaseLayout title="Catálogo - Muebles Gumilla">
+  <div class="max-w-[1440px] mx-auto px-margin-mobile lg:px-margin-desktop py-section-gap">
+    
+    <div class="mb-12 md:mb-16">
+      <h1 class="font-serif text-4xl md:text-5xl text-on-background mb-4">Catálogo</h1>
+      <p class="font-sans text-on-surface-variant max-w-2xl text-lg">
+        Explora nuestra colección de muebles de madera maciza, fabricados a mano en Santiago de Chile. Cada pieza puede ser adaptada a tus necesidades.
+      </p>
+    </div>
+
+    <!-- Filtros -->
+    <div class="flex gap-2 flex-wrap mb-10">
+      <button class="filter-btn active bg-on-background text-surface px-4 py-2 rounded-full font-sans text-sm font-medium transition-colors border border-on-background" data-category="all">
+        Todos
+      </button>
+      {categorias.map(cat => (
+        <button class="filter-btn bg-surface text-on-surface-variant px-4 py-2 rounded-full font-sans text-sm font-medium transition-colors border border-outline/20 hover:border-outline hover:text-on-background" data-category={cat}>
+          {cat.charAt(0).toUpperCase() + cat.slice(1)}
+        </button>
+      ))}
+    </div>
+
+    <!-- Grid de productos -->
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6 lg:gap-8" id="products-grid">
+      {productos.map(producto => (
+        <div class="product-item" data-category={producto.data.categoria}>
+          <ProductCard 
+            nombre={producto.data.nombre}
+            categoria={producto.data.categoria.charAt(0).toUpperCase() + producto.data.categoria.slice(1)}
+            precio_referencial={producto.data.precio_referencial}
+            medida_principal={`${producto.data.medidas.alto}x${producto.data.medidas.ancho}x${producto.data.medidas.profundidad}${producto.data.medidas.unidad}`}
+            imagen={producto.data.imagenes[0]}
+            url={`/catalogo/${producto.slug}`}
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  // Lógica simple de filtrado en cliente
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const productItems = document.querySelectorAll('.product-item');
+    
+    // Check url params for category
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoryParam = urlParams.get('categoria');
+
+    const setActiveCategory = (category) => {
+      filterBtns.forEach(btn => {
+        if (btn.getAttribute('data-category') === category) {
+          btn.classList.add('bg-on-background', 'text-surface', 'border-on-background');
+          btn.classList.remove('bg-surface', 'text-on-surface-variant', 'border-outline/20');
+        } else {
+          btn.classList.remove('bg-on-background', 'text-surface', 'border-on-background');
+          btn.classList.add('bg-surface', 'text-on-surface-variant', 'border-outline/20');
+        }
+      });
+
+      productItems.forEach(item => {
+        if (category === 'all' || item.getAttribute('data-category') === category) {
+          (item as HTMLElement).style.display = 'block';
+        } else {
+          (item as HTMLElement).style.display = 'none';
+        }
+      });
+    };
+
+    if (categoryParam) {
+      setActiveCategory(categoryParam);
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const category = btn.getAttribute('data-category');
+        setActiveCategory(category);
+        
+        // Opcional: Actualizar URL sin recargar
+        const newUrl = category === 'all' ? window.location.pathname : `${window.location.pathname}?categoria=${category}`;
+        window.history.pushState({path: newUrl}, '', newUrl);
+      });
+    });
+  });
+</script>

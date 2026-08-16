@@ -1,11 +1,112 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { Image } from 'astro:assets';
+import heroHome from '../assets/hero-home.jpg';
+import { siteConfig } from '../config/site';
+import { getCollection } from 'astro:content';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const productos = await getCollection('productos');
+const productosDestacados = productos.filter(p => p.data.destacado).slice(0, 4);
+const schema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": siteConfig.name || "Muebles Gumilla",
+  "image": `https://mueblesgumilla.com${heroHome.src}`,
+  "url": "https://mueblesgumilla.com",
+  "telephone": siteConfig.whatsappNumber,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Arturo Prat 1963",
+    "addressLocality": "Centro",
+    "addressRegion": "Región Metropolitana",
+    "addressCountry": "CL"
+  },
+  "description": siteConfig.description
+});
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout>
+  <!-- Schema.org LocalBusiness -->
+  <script type="application/ld+json" set:html={schema}></script>
+
+  <!-- Hero Section -->
+  <section class="relative w-full h-[80vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 w-full h-full">
+      <Image 
+        src={heroHome} 
+        alt="Muebles Gumilla - Taller Artesanal" 
+        class="w-full h-full object-cover"
+        width={1920}
+        quality={80}
+        loading="eager"
+      />
+      <div class="absolute inset-0 bg-black/20"></div>
+    </div>
+    <div class="relative z-10 flex flex-col items-center text-center px-6 max-w-3xl">
+      <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl text-white font-medium mb-4 drop-shadow-md">
+        Seis años creando piezas con alma
+      </h1>
+      <p class="font-sans text-lg md:text-xl text-white/90 mb-8 max-w-xl font-medium drop-shadow-sm">
+        Artesanía en madera desde el corazón de Santiago. Muebles a medida para toda la vida.
+      </p>
+      <Button href="/catalogo" variant="primary" class="shadow-lg hover:shadow-xl">
+        Ver Catálogo
+      </Button>
+    </div>
+  </section>
+
+  <!-- Categorías Destacadas -->
+  <section class="section-padding max-w-[1440px] mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+      <h2 class="font-serif text-3xl md:text-4xl text-on-background">Categorías</h2>
+      <a href="/catalogo" class="font-sans font-medium text-primary hover:text-on-background transition-colors uppercase tracking-widest text-sm flex items-center gap-2">
+        Ver todo
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 lg:gap-8">
+      {['Camas', 'Estantes', 'Mesas', 'Sillas'].map(cat => (
+        <a href={`/catalogo?categoria=${cat.toLowerCase()}`} class="group relative aspect-square overflow-hidden bg-surface-container rounded-sm flex items-end p-6 border border-outline/10">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <h3 class="relative z-20 font-serif text-2xl text-on-background group-hover:text-white transition-colors">{cat}</h3>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Productos Destacados -->
+  <section class="bg-surface-container-low section-padding">
+    <div class="max-w-[1440px] mx-auto">
+      <h2 class="font-serif text-3xl md:text-4xl text-on-background mb-12 text-center">Piezas Destacadas</h2>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        {productosDestacados.map(producto => (
+          <ProductCard 
+            nombre={producto.data.nombre}
+            categoria={producto.data.categoria.charAt(0).toUpperCase() + producto.data.categoria.slice(1)}
+            precio_referencial={producto.data.precio_referencial}
+            medida_principal={`${producto.data.medidas.alto}x${producto.data.medidas.ancho}x${producto.data.medidas.profundidad}${producto.data.medidas.unidad}`}
+            imagen={producto.data.imagenes[0]}
+            url={`/catalogo/${producto.slug}`}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section-padding max-w-[1440px] mx-auto flex flex-col items-center text-center">
+    <div class="max-w-2xl flex flex-col items-center gap-6">
+      <h2 class="font-serif text-3xl md:text-4xl text-on-background">¿Buscas algo a medida?</h2>
+      <p class="font-sans text-on-surface-variant text-lg">
+        Cada pieza que sale de nuestro taller puede ser adaptada a tus espacios y necesidades. Conversemos sobre tu próximo proyecto.
+      </p>
+      <Button href={`https://wa.me/${siteConfig.whatsappNumber}`} variant="primary" isExternal={true} class="mt-4 shadow-md">
+        Hablemos por WhatsApp
+      </Button>
+    </div>
+  </section>
+</BaseLayout>
