@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+---
+
+<BaseLayout title="Página no encontrada - Muebles Gumilla" description="La página que buscas no existe.">
+  <section class="min-h-[60vh] flex flex-col items-center justify-center text-center px-margin-mobile lg:px-margin-desktop py-section-gap">
+    <h1 class="font-serif text-6xl md:text-8xl text-primary mb-6">404</h1>
+    <h2 class="font-serif text-3xl md:text-4xl text-on-background mb-4">Página no encontrada</h2>
+    <p class="font-sans text-lg text-on-surface-variant max-w-md mx-auto mb-10">
+      Lo sentimos, no pudimos encontrar la página que estás buscando. Puede que haya sido movida o que el enlace sea incorrecto.
+    </p>
+    <Button href="/" variant="primary">
+      Volver al inicio
+    </Button>
+  </section>
+</BaseLayout>

@@ -1,11 +1,22 @@
-import { z, defineCollection } from 'astro:content';
+import { z, defineCollection, reference } from 'astro:content';
+
+const categoriasCollection = defineCollection({
+  type: 'content',
+  schema: ({ image }) => z.object({
+    nombre: z.string(),
+    imagen: z.object({
+      imagen: image(),
+      alt: z.string(),
+    })
+  })
+});
 
 const productosCollection = defineCollection({
   type: 'content',
   schema: ({ image }) => z.object({
     nombre: z.string(),
     descripcion_corta: z.string(),
-    categoria: z.enum(['camas', 'estantes', 'mesas', 'sillas', 'otros']),
+    categoria: reference('categorias'),
     precio_referencial: z.number(),
     precio_nota: z.string().default("Precio referencial. Medidas y materiales personalizables — precio final se coordina por WhatsApp"),
     medidas: z.object({
@@ -27,5 +38,6 @@ const productosCollection = defineCollection({
 });
 
 export const collections = {
+  'categorias': categoriasCollection,
   'productos': productosCollection,
 };

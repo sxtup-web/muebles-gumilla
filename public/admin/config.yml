@@ -6,6 +6,19 @@ media_folder: "src/assets/productos"
 public_folder: "../../assets/productos"
 
 collections:
+  - name: "categorias"
+    label: "Categorías"
+    folder: "src/content/categorias"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Nombre", name: "nombre", widget: "string"}
+      - label: "Imagen de Categoría"
+        name: "imagen"
+        widget: "object"
+        fields:
+          - {label: "Imagen", name: "imagen", widget: "image"}
+          - {label: "Alt Text", name: "alt", widget: "string"}
   - name: "productos"
     label: "Productos"
     folder: "src/content/productos"
@@ -14,7 +27,13 @@ collections:
     fields:
       - {label: "Nombre", name: "nombre", widget: "string"}
       - {label: "Descripción Corta", name: "descripcion_corta", widget: "text"}
-      - {label: "Categoría", name: "categoria", widget: "select", options: ["camas", "estantes", "mesas", "sillas", "otros"]}
+      - label: "Categoría"
+        name: "categoria"
+        widget: "relation"
+        collection: "categorias"
+        search_fields: ["nombre"]
+        value_field: "{{slug}}"
+        display_fields: ["nombre"]
       - {label: "Precio Referencial", name: "precio_referencial", widget: "number"}
       - {label: "Nota de Precio", name: "precio_nota", widget: "string", default: "Precio referencial. Medidas y materiales personalizables — precio final se coordina por WhatsApp"}
       - label: "Medidas"

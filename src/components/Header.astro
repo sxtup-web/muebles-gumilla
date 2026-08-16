@@ -1,6 +1,10 @@
 ---
 import { Image } from 'astro:assets';
 import logoActual from '../assets/logo-actual.png';
+
+const currentPath = Astro.url.pathname;
+const isCatalogoActive = currentPath.startsWith('/catalogo');
+const isTallerActive = currentPath.startsWith('/sobre-el-taller');
 ---
 <header class="w-full border-b border-outline/10 bg-surface/90 backdrop-blur-md sticky top-0 z-50">
   <div class="max-w-[1440px] mx-auto px-margin-mobile lg:px-margin-desktop h-20 flex items-center justify-between">
@@ -9,10 +13,10 @@ import logoActual from '../assets/logo-actual.png';
     </a>
     
     <nav class="hidden md:flex items-center gap-8">
-      <a href="/catalogo" class="font-sans text-sm font-medium tracking-wide uppercase text-on-surface-variant hover:text-primary transition-colors">
+      <a href="/catalogo" class={`font-sans text-sm font-medium tracking-wide uppercase transition-colors ${isCatalogoActive ? 'text-primary underline underline-offset-4 decoration-2' : 'text-on-surface-variant hover:text-primary'}`}>
         Catálogo
       </a>
-      <a href="/sobre-el-taller" class="font-sans text-sm font-medium tracking-wide uppercase text-on-surface-variant hover:text-primary transition-colors">
+      <a href="/sobre-el-taller" class={`font-sans text-sm font-medium tracking-wide uppercase transition-colors ${isTallerActive ? 'text-primary underline underline-offset-4 decoration-2' : 'text-on-surface-variant hover:text-primary'}`}>
         El Taller
       </a>
     </nav>
@@ -27,10 +31,10 @@ import logoActual from '../assets/logo-actual.png';
   <!-- Mobile Menu Dropdown -->
   <div id="mobile-menu" class="md:hidden hidden bg-surface border-b border-outline/10">
     <nav class="flex flex-col px-margin-mobile py-4 gap-4">
-      <a href="/catalogo" class="font-sans text-lg font-medium tracking-wide text-on-background hover:text-primary transition-colors py-2">
+      <a href="/catalogo" class={`font-sans text-lg font-medium tracking-wide transition-colors py-2 ${isCatalogoActive ? 'text-primary' : 'text-on-background hover:text-primary'}`}>
         Catálogo
       </a>
-      <a href="/sobre-el-taller" class="font-sans text-lg font-medium tracking-wide text-on-background hover:text-primary transition-colors py-2">
+      <a href="/sobre-el-taller" class={`font-sans text-lg font-medium tracking-wide transition-colors py-2 ${isTallerActive ? 'text-primary' : 'text-on-background hover:text-primary'}`}>
         El Taller
       </a>
     </nav>
@@ -38,30 +42,28 @@ import logoActual from '../assets/logo-actual.png';
 </header>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.getElementById('mobile-menu-btn');
-    const menu = document.getElementById('mobile-menu');
-    const iconBars = document.getElementById('menu-icon-bars');
-    const iconClose = document.getElementById('menu-icon-close');
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const iconBars = document.getElementById('menu-icon-bars');
+  const iconClose = document.getElementById('menu-icon-close');
 
-    if (btn && menu && iconBars && iconClose) {
-      btn.addEventListener('click', () => {
-        const isExpanded = btn.getAttribute('aria-expanded') === 'true';
-        
-        if (isExpanded) {
-          // Close menu
-          menu.classList.add('hidden');
-          iconBars.classList.remove('hidden');
-          iconClose.classList.add('hidden');
-          btn.setAttribute('aria-expanded', 'false');
-        } else {
-          // Open menu
-          menu.classList.remove('hidden');
-          iconBars.classList.add('hidden');
-          iconClose.classList.remove('hidden');
-          btn.setAttribute('aria-expanded', 'true');
-        }
-      });
-    }
-  });
+  if (btn && menu && iconBars && iconClose) {
+    btn.addEventListener('click', () => {
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      
+      if (isExpanded) {
+        // Close menu
+        menu.classList.add('hidden');
+        iconBars.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        // Open menu
+        menu.classList.remove('hidden');
+        iconBars.classList.add('hidden');
+        iconClose.classList.remove('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  }
 </script>

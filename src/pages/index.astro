@@ -5,10 +5,22 @@ import ProductCard from '../components/ProductCard.astro';
 import { Image } from 'astro:assets';
 import heroHome from '../assets/hero-home.jpg';
 import { siteConfig } from '../config/site';
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 
 const productos = await getCollection('productos');
 const productosDestacados = productos.filter(p => p.data.destacado).slice(0, 4);
+
+const resolvedDestacados = await Promise.all(
+  productosDestacados.map(async (prod) => {
+    const categoriaId = prod.data.categoria?.slug || prod.data.categoria?.id || prod.data.categoria;
+    const categoryEntry = await getEntry('categorias', String(categoriaId));
+    return {
+      ...prod,
+      resolvedCategoryName: categoryEntry ? categoryEntry.data.nombre : String(categoriaId)
+    };
+  })
+);
+const categorias = await getCollection('categorias');
 const schema = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -68,10 +80,17 @@ const schema = JSON.stringify({
     </div>
     
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 lg:gap-8">
-      {['Camas', 'Estantes', 'Mesas', 'Sillas'].map(cat => (
-        <a href={`/catalogo?categoria=${cat.toLowerCase()}`} class="group relative aspect-square overflow-hidden bg-surface-container rounded-sm flex items-end p-6 border border-outline/10">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          <h3 class="relative z-20 font-serif text-2xl text-on-background group-hover:text-white transition-colors">{cat}</h3>
+      {categorias.map(cat => (
+        <a href={`/catalogo?categoria=${cat.slug}`} class="group relative aspect-square overflow-hidden bg-surface-container rounded-sm flex items-end p-6 border border-outline/10">
+          <Image 
+            src={cat.data.imagen.imagen}
+            alt={cat.data.imagen.alt}
+            width={400}
+            height={400}
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10 transition-opacity duration-300"></div>
+          <h3 class="relative z-20 font-serif text-2xl text-white drop-shadow-sm group-hover:text-white transition-colors">{cat.data.nombre}</h3>
         </a>
       ))}
     </div>
@@ -83,16 +102,18 @@ const schema = JSON.stringify({
       <h2 class="font-serif text-3xl md:text-4xl text-on-background mb-12 text-center">Piezas Destacadas</h2>
       
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-        {productosDestacados.map(producto => (
+        {resolvedDestacados.map(producto => {
+          return (
           <ProductCard 
             nombre={producto.data.nombre}
-            categoria={producto.data.categoria.charAt(0).toUpperCase() + producto.data.categoria.slice(1)}
+            categoria={producto.resolvedCategoryName}
             precio_referencial={producto.data.precio_referencial}
             medida_principal={`${producto.data.medidas.alto}x${producto.data.medidas.ancho}x${producto.data.medidas.profundidad}${producto.data.medidas.unidad}`}
             imagen={producto.data.imagenes[0]}
             url={`/catalogo/${producto.slug}`}
           />
-        ))}
+          );
+        })}
       </div>
     </div>
   </section>

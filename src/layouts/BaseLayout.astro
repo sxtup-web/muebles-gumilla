@@ -38,7 +38,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://mueblesg
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     
     <!-- Netlify Identity (Invisible) -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body class="min-h-screen flex flex-col bg-cream-bg text-on-background selection:bg-primary/20">
     <Header />
@@ -49,14 +49,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://mueblesg
     
     <!-- Redirección para usuarios logueados (invisible) -->
     <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
+      try {
+        if (window.netlifyIdentity) {
+          window.netlifyIdentity.on("init", (user) => {
+            if (!user) {
+              window.netlifyIdentity.on("login", () => {
+                document.location.href = "/admin/";
+              });
+            }
+          });
+        }
+      } catch (error) {
+        console.warn("Netlify Identity failed to initialize:", error);
       }
     </script>
   </body>
