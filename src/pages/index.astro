@@ -35,7 +35,7 @@ const schema = JSON.stringify({
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Arturo Prat 1963",
-    "addressLocality": "Centro",
+    "addressLocality": "Santiago",
     "addressRegion": "Región Metropolitana",
     "addressCountry": "CL"
   },
@@ -127,7 +127,7 @@ const schema = JSON.stringify({
   <!-- Sección SEO Expandida: Catálogo y Filosofía -->
   <section class="py-24 bg-surface-warm/30 my-section-gap border-y border-outline/10">
     <div class="max-w-[1440px] mx-auto px-margin-mobile lg:px-margin-desktop">
-      <div class="max-w-4xl mx-auto text-center mb-16">
+      <div class="max-w-4xl mx-auto text-center mb-16 md:mb-24">
         <h2 class="font-serif text-3xl md:text-5xl text-on-background mb-6">Piezas hechas con propósito: Muebles que cuentan tu historia</h2>
         <div class="font-sans text-lg md:text-xl text-on-surface-variant leading-relaxed space-y-4">
           <p>
@@ -139,39 +139,99 @@ const schema = JSON.stringify({
         </div>
       </div>
       
-      <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-start">
-        <div class="flex flex-col gap-6 bg-white p-8 md:p-10 rounded-3xl border border-outline/10 shadow-sm h-full">
-          <h3 class="font-serif text-2xl md:text-3xl text-on-background">Nuestro Catálogo de Madera Maciza</h3>
-          <div class="font-sans text-on-surface-variant leading-relaxed space-y-4">
-            <p>
-              Explorar nuestro catálogo es adentrarse en un mundo donde la nobleza de los materiales dicta las reglas. Nos especializamos en trabajar maderas nativas chilenas y opciones nobles como el roble, lenga y raulí, ofreciendo una variedad de categorías adaptables a cualquier espacio.
-            </p>
-            <p>
-              <strong>Camas y Dormitorios:</strong> Nuestras camas, en particular las de estilo japonés, son estructuras bajas y minimalistas que invitan al descanso profundo. Eliminamos los ruidos estructurales utilizando ensambles de carpintería tradicional, logrando bases firmes, silenciosas y elegantes.
-            </p>
-            <p>
-              <strong>Mesas de Comedor y Centro:</strong> El comedor es el corazón de cualquier casa. Construimos mesas robustas y amplias, cuyas cubiertas de madera maciza exhiben vetas únicas e irrepetibles. Las tratamos con ceras y aceites naturales que las protegen del roce diario y la humedad, manteniendo su calidez al tacto.
-            </p>
-            <p>
-              <strong>Estantes y Almacenaje:</strong> Diseñamos soluciones de guardado funcionales. Desde repisas suspendidas hasta estanterías modulares, cada pieza se calcula minuciosamente para soportar peso sin deformarse, optimizando el uso de tus muros y rincones vacíos.
+      <!-- Zig Zag: Catálogo -->
+      <div class="flex flex-col gap-16 md:gap-24 mb-24">
+        <div class="text-center">
+          <h3 class="font-serif text-3xl md:text-4xl text-on-background mb-4">Nuestro Catálogo de Madera Maciza</h3>
+          <p class="font-sans text-on-surface-variant max-w-3xl mx-auto text-lg leading-relaxed">
+            Explorar nuestro catálogo es adentrarse en un mundo donde la nobleza de los materiales dicta las reglas. Nos especializamos en trabajar maderas nativas chilenas y opciones nobles como el roble, lenga y raulí, ofreciendo una variedad de categorías adaptables a cualquier espacio.
+          </p>
+        </div>
+
+        <!-- Row 1: Camas -->
+        <div class="flex flex-col md:flex-row gap-8 lg:gap-16 items-center">
+          <div class="w-full md:w-1/2">
+            <div class="bg-white p-5 sm:p-6 rounded-2xl border-2 border-white shadow-md">
+              <div class="relative aspect-[4/3] overflow-hidden bg-beige-700 rounded-lg shadow-inner">
+                <Image src={import('../assets/productos/placeholder_cama.png')} alt="Camas y Dormitorios a Medida" class="absolute inset-0 w-full h-full object-cover" width={600} quality={90} />
+              </div>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 flex flex-col gap-4">
+            <h4 class="font-serif text-2xl md:text-3xl text-on-background">Camas y Dormitorios</h4>
+            <p class="font-sans text-on-surface-variant leading-relaxed text-lg">
+              Nuestras camas, en particular las de estilo japonés, son estructuras bajas y minimalistas que invitan al descanso profundo. Eliminamos los ruidos estructurales utilizando ensambles de carpintería tradicional, logrando bases firmes, silenciosas y elegantes.
             </p>
           </div>
         </div>
 
-        <div class="flex flex-col gap-6 bg-white p-8 md:p-10 rounded-3xl border border-outline/10 shadow-sm h-full">
-          <h3 class="font-serif text-2xl md:text-3xl text-on-background">El Proceso de Diseño a Medida</h3>
-          <div class="font-sans text-on-surface-variant leading-relaxed space-y-4">
-            <p>
-              Sabemos que la estandarización no siempre funciona. Cada hogar en Chile, ya sea un departamento moderno o una casa clásica de época, posee dimensiones y distribuciones particulares que requieren estrictamente de un <strong>diseño a medida</strong>.
+        <!-- Row 2: Mesas -->
+        <div class="flex flex-col md:flex-row-reverse gap-8 lg:gap-16 items-center">
+          <div class="w-full md:w-1/2">
+            <div class="bg-white p-5 sm:p-6 rounded-2xl border-2 border-white shadow-md">
+              <div class="relative aspect-[4/3] overflow-hidden bg-beige-700 rounded-lg shadow-inner">
+                <Image src={import('../assets/productos/placeholder_mesa.png')} alt="Mesas de Comedor en Madera Maciza" class="absolute inset-0 w-full h-full object-cover" width={600} quality={90} />
+              </div>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 flex flex-col gap-4">
+            <h4 class="font-serif text-2xl md:text-3xl text-on-background">Mesas de Comedor y Centro</h4>
+            <p class="font-sans text-on-surface-variant leading-relaxed text-lg">
+              El comedor es el corazón de cualquier casa. Construimos mesas robustas y amplias, cuyas cubiertas de madera maciza exhiben vetas únicas e irrepetibles. Las tratamos con ceras y aceites naturales que las protegen del roce diario y la humedad, manteniendo su calidez al tacto.
             </p>
-            <p>
-              <strong>Contacto y Cotización:</strong> El primer paso es contactarnos por WhatsApp. Ahí conversamos de forma directa; nos puedes enviar fotos del espacio, referencias visuales o contarnos tu problema de diseño. Esta comunicación directa asegura que no haya intermediarios ni malentendidos durante el proceso.
+          </div>
+        </div>
+
+        <!-- Row 3: Estantes -->
+        <div class="flex flex-col md:flex-row gap-8 lg:gap-16 items-center">
+          <div class="w-full md:w-1/2">
+            <div class="bg-white p-5 sm:p-6 rounded-2xl border-2 border-white shadow-md">
+              <div class="relative aspect-[4/3] overflow-hidden bg-beige-700 rounded-lg shadow-inner">
+                <Image src={import('../assets/productos/placeholder_estante.png')} alt="Estantes y Soluciones de Almacenaje" class="absolute inset-0 w-full h-full object-cover" width={600} quality={90} />
+              </div>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 flex flex-col gap-4">
+            <h4 class="font-serif text-2xl md:text-3xl text-on-background">Estantes y Almacenaje</h4>
+            <p class="font-sans text-on-surface-variant leading-relaxed text-lg">
+              Diseñamos soluciones de guardado funcionales. Desde repisas suspendidas hasta estanterías modulares, cada pieza se calcula minuciosamente para soportar peso sin deformarse, optimizando el uso de tus muros y rincones vacíos con un diseño estrictamente a medida.
             </p>
-            <p>
-              <strong>Selección de Materiales y Ajustes:</strong> Te asesoramos sobre qué madera es ideal para tu proyecto. ¿Buscas un tono claro y luminoso? El pino radiata o la lenga pueden ser perfectos. ¿Prefieres un tono profundo y clásico? El roble o raulí son opciones infalibles. Además, ajustamos cada centímetro (alto, ancho, profundidad) para asegurar ergonomía total.
+          </div>
+        </div>
+      </div>
+
+      <!-- El Proceso de Diseño a Medida -->
+      <div class="bg-white p-8 md:p-12 lg:p-16 rounded-3xl border border-outline/10 shadow-lg">
+        <h3 class="font-serif text-3xl md:text-4xl text-on-background mb-8 text-center">El Proceso de Diseño a Medida</h3>
+        
+        <div class="font-sans text-on-surface-variant leading-relaxed text-lg mb-12 max-w-4xl mx-auto text-center">
+          <p>
+            Sabemos que la estandarización no siempre funciona. Cada hogar en Chile, ya sea un departamento moderno o una casa clásica de época, posee dimensiones y distribuciones particulares que requieren estrictamente de un <strong>diseño a medida</strong>.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+          <div class="flex flex-col gap-4">
+            <div class="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center text-on-background mb-2 font-serif text-2xl">1</div>
+            <h4 class="font-serif text-2xl text-on-background">Contacto y Cotización</h4>
+            <p class="font-sans text-on-surface-variant leading-relaxed text-base">
+              El primer paso es contactarnos por WhatsApp. Ahí conversamos de forma directa; nos puedes enviar fotos del espacio, referencias visuales o contarnos tu problema de diseño. Esta comunicación directa asegura que no haya intermediarios ni malentendidos durante todo el proceso.
             </p>
-            <p>
-              <strong>Desarrollo y Entrega:</strong> Una vez aprobado el diseño, el taller entra en acción. Durante los días de fabricación, mantenemos altísimos estándares de control de calidad. Al finalizar, entregamos un mueble listo para ser disfrutado, construido éticamente y pensado en cada detalle.
+          </div>
+
+          <div class="flex flex-col gap-4">
+            <div class="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center text-on-background mb-2 font-serif text-2xl">2</div>
+            <h4 class="font-serif text-2xl text-on-background">Materiales y Ajustes</h4>
+            <p class="font-sans text-on-surface-variant leading-relaxed text-base">
+              Te asesoramos sobre qué madera es ideal para tu proyecto. ¿Buscas un tono claro y luminoso? El pino radiata o la lenga pueden ser perfectos. ¿Prefieres un tono profundo y clásico? El roble o raulí son opciones infalibles. Además, ajustamos cada centímetro para asegurar ergonomía.
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            <div class="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center text-on-background mb-2 font-serif text-2xl">3</div>
+            <h4 class="font-serif text-2xl text-on-background">Desarrollo y Entrega</h4>
+            <p class="font-sans text-on-surface-variant leading-relaxed text-base">
+              Una vez aprobado el diseño, el taller entra en acción. Durante los días de fabricación, mantenemos altísimos estándares de control de calidad. Al finalizar, entregamos un mueble listo para ser disfrutado, construido éticamente y pensado hasta en el último de los detalles.
             </p>
           </div>
         </div>
@@ -186,7 +246,7 @@ const schema = JSON.stringify({
         <h2 class="font-serif text-3xl md:text-4xl text-on-background">Nuestro Proceso Artesanal</h2>
         <div class="font-sans text-on-surface-variant text-base md:text-lg space-y-4">
           <p>
-            En <strong>Muebles Gumilla</strong>, creemos que cada mueble debe contar una historia y acompañarte para toda la vida. Por más de seis años, nuestro taller ubicado en el corazón de Santiago de Chile se ha dedicado a la <strong>fabricación de muebles de madera a medida</strong>, priorizando la calidad, el detalle y la nobleza de los materiales. 
+            En Muebles Gumilla, creemos que cada mueble debe contar una historia y acompañarte para toda la vida. Por más de seis años, nuestro taller ubicado en el corazón de Santiago de Chile se ha dedicado a la <strong>fabricación de muebles de madera a medida</strong>, priorizando la calidad, el detalle y la nobleza de los materiales. 
           </p>
           <p>
             Trabajamos con maderas cuidadosamente seleccionadas como <strong>roble, raulí, lenga y pino radiata</strong>, asegurando que cada veta y textura se resalte en el resultado final. Nuestro proceso comienza contigo: nos cuentas tu idea y diseñamos piezas únicas que se ajustan exactamente a las dimensiones de tus espacios.
