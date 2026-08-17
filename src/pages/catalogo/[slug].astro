@@ -84,17 +84,19 @@ const productSchema = JSON.stringify({
       
       <!-- Galería Carrusel -->
       <div class="w-full lg:w-1/2 group relative">
-        <div id="carousel-container" class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide rounded-sm bg-surface-variant/30">
+        <div id="carousel-container" class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-4 pb-4">
           {producto.data.imagenes.map((img: any, idx: number) => (
-            <div class="flex-none w-full snap-center relative aspect-[4/5] sm:aspect-square md:max-h-[500px] lg:max-h-[600px]">
-              <Image 
-                src={img.imagen} 
-                alt={img.alt || `Imagen ${idx + 1} de ${producto.data.nombre}`} 
-                class="w-full h-full object-cover"
-                width={800}
-                height={800}
-                quality={90}
-              />
+            <div class="flex-none w-full snap-center relative aspect-[4/5] sm:aspect-square md:max-h-[500px] lg:max-h-[600px] p-5 md:p-6 bg-white border-2 border-white rounded-2xl shadow-md">
+              <div class="relative w-full h-full rounded-xl overflow-hidden bg-beige-700 shadow-inner">
+                <Image 
+                  src={img.imagen} 
+                  alt={img.alt || `Imagen ${idx + 1} de ${producto.data.nombre}`} 
+                  class="absolute inset-0 w-full h-full object-cover"
+                  width={800}
+                  height={800}
+                  quality={90}
+                />
+              </div>
             </div>
           ))}
         </div>

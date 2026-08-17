@@ -1,16 +1,17 @@
 ---
 import { Image } from 'astro:assets';
 import logoActual from '../assets/logo-actual.png';
+import { siteConfig } from '../config/site';
 
 const currentPath = Astro.url.pathname;
 const isCatalogoActive = currentPath.startsWith('/catalogo');
 const isTallerActive = currentPath.startsWith('/sobre-el-taller');
 ---
-<header class="w-full border-b border-outline/10 bg-surface/90 backdrop-blur-md sticky top-0 z-50">
-  <div class="max-w-[1440px] mx-auto px-margin-mobile lg:px-margin-desktop h-20 flex items-center justify-between">
-    <a href="/" class="hover:opacity-80 transition-opacity flex items-center gap-3">
-      <Image src={logoActual} alt="Muebles Gumilla Logo" height={40} width={40} class="h-10 w-10 object-cover rounded-full shrink-0" />
-      <span class="font-serif text-lg md:text-xl text-on-background whitespace-nowrap">Muebles Gumilla</span>
+<header class="w-full border-b border-outline/10 bg-white/95 backdrop-blur-md sticky top-0 z-50">
+  <div class="max-w-[1440px] mx-auto px-margin-mobile lg:px-margin-desktop h-24 flex items-center justify-between">
+    <a href="/" class="hover:opacity-80 transition-opacity flex items-center gap-4">
+      <Image src={logoActual} alt="Muebles Gumilla Logo" height={56} width={56} class="h-14 w-14 object-cover rounded-full shrink-0" />
+      <span class="font-serif text-xl md:text-2xl font-medium text-on-background whitespace-nowrap">Muebles Gumilla</span>
     </a>
     
     <nav class="hidden md:flex items-center gap-8">
@@ -19,6 +20,9 @@ const isTallerActive = currentPath.startsWith('/sobre-el-taller');
       </a>
       <a href="/sobre-el-taller" class={`font-sans text-sm font-medium tracking-wide uppercase transition-colors ${isTallerActive ? 'text-primary underline underline-offset-4 decoration-2' : 'text-on-surface-variant hover:text-primary'}`}>
         El Taller
+      </a>
+      <a href={siteConfig.mapsUrl} target="_blank" rel="noopener noreferrer" class="text-on-surface-variant hover:text-primary transition-colors flex items-center" title="Ver ubicación en el mapa">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
       </a>
     </nav>
     
@@ -30,13 +34,17 @@ const isTallerActive = currentPath.startsWith('/sobre-el-taller');
   </div>
 
   <!-- Mobile Menu Dropdown -->
-  <div id="mobile-menu" class="md:hidden hidden bg-surface border-b border-outline/10">
+  <div id="mobile-menu" class="md:hidden hidden bg-white border-b border-outline/10">
     <nav class="flex flex-col px-margin-mobile py-4 gap-4">
       <a href="/catalogo" class={`font-sans text-lg font-medium tracking-wide transition-colors py-2 ${isCatalogoActive ? 'text-primary' : 'text-on-background hover:text-primary'}`}>
         Catálogo
       </a>
       <a href="/sobre-el-taller" class={`font-sans text-lg font-medium tracking-wide transition-colors py-2 ${isTallerActive ? 'text-primary' : 'text-on-background hover:text-primary'}`}>
         El Taller
+      </a>
+      <a href={siteConfig.mapsUrl} target="_blank" rel="noopener noreferrer" class="font-sans text-lg font-medium tracking-wide text-on-background hover:text-primary transition-colors py-2 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        Ubicación
       </a>
     </nav>
   </div>

@@ -17,6 +17,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://mueblesg
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonicalURL} />
@@ -40,7 +41,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://mueblesg
     <!-- Netlify Identity (Invisible) -->
     <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
-  <body class="min-h-screen flex flex-col bg-cream-bg text-on-background selection:bg-primary/20">
+  <body class="min-h-screen flex flex-col bg-background text-on-background selection:bg-primary/20">
     <Header />
     <main class="flex-grow">
       <slot />

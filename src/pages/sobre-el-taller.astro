@@ -6,39 +6,46 @@ import { siteConfig } from '../config/site';
 ---
 
 <BaseLayout title="Sobre el taller - Muebles Gumilla" description="Conoce la historia detrás de nuestro taller artesanal en Santiago de Chile.">
-  <div class="max-w-[800px] mx-auto px-margin-mobile lg:px-margin-desktop py-section-gap">
-    <div class="text-center mb-16">
-      <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl text-on-background tracking-tight mb-4">Sobre el taller</h1>
-      <p class="font-serif italic text-primary/80 mb-6">Desde 2020 &middot; Artesanía en Pino Insigne &middot; Envíos a todo Chile</p>
-      <hr class="w-16 border-t-2 border-primary/30 mx-auto my-8" />
-      <p class="font-sans text-lg text-on-surface-variant max-w-2xl mx-auto">
-        Dedicación y respeto por la madera natural, fusionando lo tradicional con lo moderno.
+  <div class="max-w-2xl mx-auto px-margin-mobile lg:px-margin-desktop py-section-gap flex flex-col items-center">
+    
+    <div class="w-48 h-48 sm:w-56 sm:h-56 mb-12 bg-white p-3 sm:p-4 rounded-2xl shadow-sm border border-outline/10 shrink-0">
+      <div class="w-full h-full rounded-xl overflow-hidden bg-surface-variant/30 flex items-center justify-center">
+        <Image src={logoAntiguo} alt="Logo original de Muebles Gumilla" class="object-contain w-full h-full" width={400} height={400} />
+      </div>
+    </div>
+
+    <div class="text-center mb-12 w-full">
+      <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl text-on-background tracking-tight mb-6">Nuestra Historia</h1>
+      <p class="font-serif italic text-primary/80 text-lg">Desde 2020 &middot; Artesanía en Pino Insigne</p>
+    </div>
+
+    <div class="space-y-8 font-sans text-lg md:text-xl text-on-surface-variant leading-relaxed text-center sm:text-left">
+      <p>
+        <strong class="text-on-background">Muebles Gumilla</strong> nació en el año 2020, en medio de la pandemia, como una respuesta a la necesidad de crear espacios que verdaderamente se sintieran como un hogar. Somos un equipo de fundadores venezolanos, con nuestras raíces en Puerto Ordaz, Ciudad Guayana (🇻🇪), y hoy con orgullo fabricamos desde Santiago para enviar a diferentes rincones de Chile (🇨🇱).
+      </p>
+      
+      <p>
+        Dedicamos nuestro trabajo al respeto por la madera natural, fusionando lo tradicional con lo moderno. Trabajamos exclusivamente con <strong>pino insigne de primera calidad</strong>, un material noble que nos permite dar vida a diseños tanto clásicos como contemporáneos.
+      </p>
+
+      <p>
+        Creemos en el valor de lo hecho a mano. Combinamos el meticuloso proceso artesanal del trabajo en madera con técnicas modernas de fabricación, asegurando precisión, durabilidad y acabados impecables en cada pieza que sale de nuestro taller. No hacemos muebles en serie, hacemos muebles para toda la vida.
       </p>
     </div>
 
-    <div class="flex flex-col md:flex-row gap-12 items-center mb-16">
-      <div class="w-full md:w-1/2 flex justify-center">
-        <Image src={logoAntiguo} alt="Logo original de Muebles Gumilla" class="rounded-full object-cover shadow-md aspect-square w-64 md:w-80" width={400} height={400} />
-      </div>
-      <div class="w-full md:w-1/2 space-y-6 text-on-surface-variant font-sans text-lg leading-relaxed">
-        <p>
-          Muebles Gumilla nació en el año 2020, en medio de la pandemia, como una respuesta a la necesidad de crear espacios que verdaderamente se sintieran como un hogar. Somos un equipo de fundadores venezolanos, con nuestras raíces en Puerto Ordaz, Ciudad Guayana (🇻🇪), y hoy con orgullo fabricamos desde Santiago para enviar a diferentes rincones de Chile (🇨🇱).
-        </p>
-        <p>
-          Trabajamos exclusivamente con <strong>pino insigne de primera calidad</strong>. Creemos en la fusión de lo tradicional y lo contemporáneo: combinamos el meticuloso proceso artesanal del trabajo en madera con técnicas modernas de fabricación, asegurando precisión, durabilidad y acabados impecables en cada pieza que sale de nuestro taller.
-        </p>
-      </div>
-    </div>
+    <hr class="w-full max-w-[200px] border-t border-outline/20 mx-auto my-16" />
 
-    <div class="bg-surface-container-low p-8 rounded-2xl border border-outline/10 text-center">
+    <div class="w-full bg-white p-8 sm:p-10 rounded-3xl border border-outline/10 text-center shadow-sm relative overflow-hidden">
+      <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
       <h2 class="font-serif text-2xl text-on-background mb-4">Dónde encontrarnos</h2>
-      <p class="font-sans text-on-surface-variant mb-6 max-w-md mx-auto">
-        Nuestro taller está ubicado en el centro histórico de la ciudad. Recibimos visitas únicamente con agenda previa para poder dedicarte el tiempo que tu proyecto merece.
+      <p class="font-sans text-on-surface-variant mb-8 max-w-md mx-auto text-base">
+        Nuestro taller está ubicado en el centro de la ciudad. Recibimos visitas únicamente con agenda previa para dedicarte el tiempo que tu proyecto merece.
       </p>
-      <div class="inline-flex items-center gap-2 bg-surface text-on-background px-4 py-2 rounded-full border border-outline/10 font-medium">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-        {siteConfig.address}
-      </div>
+      <a href={siteConfig.mapsUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 bg-surface-container text-on-background px-6 py-4 rounded-xl border border-outline/10 font-medium hover:bg-beige-50 hover:border-primary/20 transition-all shadow-sm hover:shadow-md text-sm md:text-base w-full sm:w-auto">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary shrink-0"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>{siteConfig.address}</span>
+      </a>
     </div>
+
   </div>
 </BaseLayout>

@@ -41,6 +41,16 @@ colors:
   surface-warm: '#D9CBB3'
   wood-accent: '#8C7355'
   graphite: '#333333'
+  beige-50: '#FBF9F6'
+  beige-100: '#F3F0E1'
+  beige-200: '#EFE8D3'
+  beige-300: '#EBE4D9'
+  beige-400: '#E4DEB7'
+  beige-500: '#E0D5A8'
+  beige-600: '#D9CBB3'
+  beige-700: '#B8A991'
+  beige-800: '#93856F'
+  beige-900: '#6B5F4A'
 typography:
   headline-xl:
     fontFamily: Lora, serif

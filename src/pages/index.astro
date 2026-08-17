@@ -4,6 +4,8 @@ import Button from '../components/Button.astro';
 import ProductCard from '../components/ProductCard.astro';
 import { Image } from 'astro:assets';
 import heroHome from '../assets/hero-home.jpg';
+import tallerImage from '../assets/productos/img-20260817-wa0014.jpg';
+import bosqueChileno from '../assets/bosque-chileno.jpg';
 import { siteConfig } from '../config/site';
 import { getCollection, getEntry } from 'astro:content';
 
@@ -21,6 +23,8 @@ const resolvedDestacados = await Promise.all(
   })
 );
 const categorias = await getCollection('categorias');
+const orderedCategoriesMain = categorias.filter(c => c.data.nombre !== 'Otros').sort((a,b) => a.data.nombre.localeCompare(b.data.nombre));
+const categoryOtros = categorias.find(c => c.data.nombre === 'Otros');
 const schema = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -58,13 +62,13 @@ const schema = JSON.stringify({
     </div>
     <div class="relative z-10 flex flex-col items-center text-center px-6 max-w-3xl">
       <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl text-white font-medium mb-4 drop-shadow-md">
-        Seis años creando piezas con alma
+        Piezas hechas con propósito, para toda la vida.
       </h1>
       <p class="font-sans text-lg md:text-xl text-white/90 mb-8 max-w-xl font-medium drop-shadow-sm">
-        Artesanía en madera desde el corazón de Santiago. Muebles a medida para toda la vida.
+        Artesanía en madera desde el corazón de Santiago. Diseños únicos pensados para tu hogar.
       </p>
       <Button href="/catalogo" variant="primary" class="shadow-lg hover:shadow-xl">
-        Ver Catálogo
+        Explorar colección completa
       </Button>
     </div>
   </section>
@@ -74,44 +78,101 @@ const schema = JSON.stringify({
     <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
       <h2 class="font-serif text-3xl md:text-4xl text-on-background">Categorías</h2>
       <a href="/catalogo" class="font-sans font-medium text-primary hover:text-on-background transition-colors uppercase tracking-widest text-sm flex items-center gap-2">
-        Ver todo
+        Descubrir opciones
+
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
     </div>
     
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 lg:gap-8">
-      {categorias.map(cat => (
-        <a href={`/catalogo?categoria=${cat.slug}`} class="group relative aspect-square overflow-hidden bg-surface-container rounded-sm flex items-end p-6 border border-outline/10">
-          <Image 
-            src={cat.data.imagen.imagen}
-            alt={cat.data.imagen.alt}
-            width={400}
-            height={400}
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10 transition-opacity duration-300"></div>
-          <h3 class="relative z-20 font-serif text-2xl text-white drop-shadow-sm group-hover:text-white transition-colors">{cat.data.nombre}</h3>
+      {orderedCategoriesMain.map(cat => (
+        <a href={`/catalogo?categoria=${cat.slug}`} class="group flex flex-col transition-transform duration-300 ease-out hover:-translate-y-1">
+          <div class="bg-white p-5 sm:p-6 rounded-2xl border-2 border-white shadow-md">
+            <div class="relative aspect-square overflow-hidden bg-beige-700 rounded-lg shadow-inner flex items-end p-4 md:p-6">
+              <Image 
+                src={cat.data.imagen.imagen}
+                alt={cat.data.imagen.alt}
+                width={400}
+                height={400}
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10 transition-opacity duration-300"></div>
+              <h3 class="relative z-20 font-serif text-2xl text-white drop-shadow-sm group-hover:text-white transition-colors">{cat.data.nombre}</h3>
+            </div>
+          </div>
         </a>
       ))}
+    </div>
+    {categoryOtros && (
+      <div class="flex justify-center mt-6 lg:mt-8">
+        <a href={`/catalogo?categoria=${categoryOtros.slug}`} class="group flex flex-col transition-transform duration-300 ease-out hover:-translate-y-1 w-full md:w-[600px] max-w-full">
+          <div class="bg-white p-5 sm:p-6 rounded-2xl border-2 border-white shadow-md">
+            <div class="relative aspect-[3/2] md:aspect-[3/1] overflow-hidden bg-beige-700 rounded-lg shadow-inner flex items-end p-4 md:p-6">
+              <Image 
+                src={categoryOtros.data.imagen.imagen}
+                alt={categoryOtros.data.imagen.alt}
+                width={600}
+                height={300}
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10 transition-opacity duration-300"></div>
+              <h3 class="relative z-20 font-serif text-2xl text-white drop-shadow-sm group-hover:text-white transition-colors">{categoryOtros.data.nombre}</h3>
+            </div>
+          </div>
+        </a>
+      </div>
+    )}
+  </section>
+
+  <!-- Sección SEO / Proceso Artesanal -->
+  <section class="py-16 bg-white border-y border-outline/10 my-section-gap">
+    <div class="max-w-[1440px] mx-auto px-margin-mobile lg:px-margin-desktop grid md:grid-cols-2 gap-12 items-center">
+      <div class="flex flex-col gap-6">
+        <h2 class="font-serif text-3xl md:text-4xl text-on-background">Nuestro Proceso Artesanal</h2>
+        <div class="font-sans text-on-surface-variant text-base md:text-lg space-y-4">
+          <p>
+            En <strong>Muebles Gumilla</strong>, creemos que cada mueble debe contar una historia y acompañarte para toda la vida. Por más de seis años, nuestro taller ubicado en el corazón de Santiago de Chile se ha dedicado a la <strong>fabricación de muebles de madera a medida</strong>, priorizando la calidad, el detalle y la nobleza de los materiales. 
+          </p>
+          <p>
+            Trabajamos con maderas cuidadosamente seleccionadas como <strong>roble, raulí, lenga y pino radiata</strong>, asegurando que cada veta y textura se resalte en el resultado final. Nuestro proceso comienza contigo: nos cuentas tu idea y diseñamos piezas únicas que se ajustan exactamente a las dimensiones de tus espacios.
+          </p>
+          <p>
+            A diferencia de la producción industrial, nuestro proceso es 100% <strong>artesanal y hecho a mano</strong>. Esto nos permite garantizar un ensamblaje robusto y terminaciones premium, utilizando aceites y selladores naturales que protegen la madera sin alterar su esencia. El tiempo de confección de cada encargo varía según su complejidad, pero generalmente entregamos nuestras piezas entre 15 y 20 días hábiles, asegurando que el trabajo se realice con la dedicación que merece.
+          </p>
+          <p>
+            Elegir un mueble a medida no es solo comprar un objeto, es invertir en durabilidad, diseño consciente y apoyo a la artesanía local chilena. 
+          </p>
+        </div>
+        <Button href="/sobre-el-taller" variant="secondary" class="mt-2 w-fit shadow-sm">
+          Conoce más sobre el taller
+        </Button>
+      </div>
+      <div class="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl hidden md:block bg-white p-5 md:p-6 border-2 border-white">
+        <div class="relative w-full h-full rounded-xl overflow-hidden bg-beige-700 shadow-inner">
+          <Image src={tallerImage} alt="Proceso artesanal en Muebles Gumilla - Taller en Santiago" class="absolute inset-0 w-full h-full object-cover" width={800} height={600} />
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Productos Destacados -->
-  <section class="bg-surface-container-low section-padding">
+  <section class="pt-28 pb-16 md:pt-36 md:pb-24">
     <div class="max-w-[1440px] mx-auto">
-      <h2 class="font-serif text-3xl md:text-4xl text-on-background mb-12 text-center">Piezas Destacadas</h2>
+      <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-on-background mb-14 text-center">Piezas Destacadas</h2>
       
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+      <div class="flex flex-wrap justify-center gap-6 lg:gap-8">
         {resolvedDestacados.map(producto => {
           return (
-          <ProductCard 
-            nombre={producto.data.nombre}
-            categoria={producto.resolvedCategoryName}
-            precio_referencial={producto.data.precio_referencial}
-            medida_principal={`${producto.data.medidas.alto}x${producto.data.medidas.ancho}x${producto.data.medidas.profundidad}${producto.data.medidas.unidad}`}
-            imagen={producto.data.imagenes[0]}
-            url={`/catalogo/${producto.slug}`}
-          />
+          <div class="w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(25%-1.5rem)] max-w-[280px]">
+            <ProductCard 
+              nombre={producto.data.nombre}
+              categoria={producto.resolvedCategoryName}
+              precio_referencial={producto.data.precio_referencial}
+              medida_principal={`${producto.data.medidas.alto}x${producto.data.medidas.ancho}x${producto.data.medidas.profundidad}${producto.data.medidas.unidad}`}
+              imagen={producto.data.imagenes[0]}
+              url={`/catalogo/${producto.slug}`}
+            />
+          </div>
           );
         })}
       </div>
@@ -119,15 +180,31 @@ const schema = JSON.stringify({
   </section>
 
   <!-- CTA Section -->
-  <section class="section-padding max-w-[1440px] mx-auto flex flex-col items-center text-center">
-    <div class="max-w-2xl flex flex-col items-center gap-6">
-      <h2 class="font-serif text-3xl md:text-4xl text-on-background">¿Buscas algo a medida?</h2>
-      <p class="font-sans text-on-surface-variant text-lg">
-        Cada pieza que sale de nuestro taller puede ser adaptada a tus espacios y necesidades. Conversemos sobre tu próximo proyecto.
-      </p>
-      <Button href={`https://wa.me/${siteConfig.whatsappNumber}`} variant="primary" isExternal={true} class="mt-4 shadow-md">
-        Hablemos por WhatsApp
-      </Button>
+  <section class="relative w-full py-24 md:py-32 flex flex-col items-center text-center px-margin-mobile lg:px-margin-desktop overflow-hidden">
+    <div class="absolute inset-0 w-full h-full">
+      <Image src={bosqueChileno} alt="Bosque Chileno - Inspiración Natural" class="w-full h-full object-cover" width={1920} quality={80} />
+      <div class="absolute inset-0 bg-black/40"></div>
+    </div>
+
+    <div class="relative z-10 max-w-3xl w-full flex flex-col items-center gap-8 bg-white/95 backdrop-blur-md p-8 md:p-12 lg:p-16 rounded-3xl shadow-2xl border border-white/50">
+      <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-on-background">¿Buscas algo a medida?</h2>
+      <div class="font-sans text-on-surface-variant text-lg md:text-xl space-y-4">
+        <p>
+          Sabemos que cada hogar es único y requiere soluciones pensadas específicamente para él. Si tienes un diseño en mente o necesitas adaptar alguna de nuestras piezas a dimensiones particulares, estamos listos para ayudarte.
+        </p>
+        <p>
+          En Muebles Gumilla transformamos tus ideas en realidad. Conversemos sobre tu próximo proyecto y descubre cómo podemos aportar calidez y funcionalidad a tus espacios.
+        </p>
+      </div>
+      <div class="flex flex-col sm:flex-row w-full sm:w-auto gap-4 mt-4">
+        <Button href={`https://wa.me/${siteConfig.whatsappNumber}`} variant="primary" isExternal={true} class="w-full sm:w-auto shadow-md">
+          Hablemos por WhatsApp
+        </Button>
+        <Button href={siteConfig.mapsUrl} variant="outline" isExternal={true} class="w-full sm:w-auto flex items-center justify-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          Visítanos en el Taller
+        </Button>
+      </div>
     </div>
   </section>
 </BaseLayout>

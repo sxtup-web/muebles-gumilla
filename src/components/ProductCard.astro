@@ -21,22 +21,24 @@ const formatPrice = (price: number) => {
 };
 ---
 
-<a href={url} class="group flex flex-col gap-4 transition-transform duration-300 ease-out hover:-translate-y-1 bg-surface-warm p-4 rounded-lg">
-  <div class="relative aspect-[4/5] overflow-hidden bg-surface-variant/30 rounded-sm">
+<a href={url} class="group flex flex-col gap-4 transition-transform duration-300 ease-out hover:-translate-y-1">
+  <div class="bg-white p-5 sm:p-6 rounded-2xl border-2 border-white shadow-md">
+    <div class="relative aspect-[4/5] overflow-hidden bg-beige-700 rounded-lg shadow-inner">
     <Image 
       src={imagen.imagen} 
       alt={imagen.alt || `Fotografía de ${nombre}`} 
-      class="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+      class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
       width={400}
       height={500}
     />
     <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"></div>
+    </div>
   </div>
   
   <div class="flex flex-col gap-1">
     <div class="flex justify-between items-start gap-4">
-      <h3 class="font-serif text-lg font-medium text-on-background">{nombre}</h3>
-      <span class="font-sans text-on-surface-variant whitespace-nowrap">{formatPrice(precio_referencial)}</span>
+      <h3 class="font-serif text-lg font-medium text-on-background line-clamp-2 min-h-[3.5rem]">{nombre}</h3>
+      <span class="font-sans text-on-surface-variant whitespace-nowrap pt-1">{formatPrice(precio_referencial)}</span>
     </div>
     
     <div class="flex items-center gap-2 text-sm text-outline">
