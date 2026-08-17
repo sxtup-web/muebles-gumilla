@@ -43,7 +43,7 @@ const resolvedProductos = await Promise.all(
       </button>
       {categoriasResolved.map(cat => {
         return (
-        <button class="filter-btn bg-surface text-on-surface-variant px-4 py-2 rounded-full font-sans text-sm font-medium transition-colors border border-outline/20 hover:border-outline hover:text-on-background" data-category={cat.id}>
+        <button class="filter-btn bg-surface text-on-surface-variant px-4 py-2 rounded-full font-sans text-sm font-medium transition-colors border border-outline/20 hover:border-outline hover:text-on-background hover:bg-surface-warm" data-category={cat.id}>
           {cat.nombre}
         </button>
         );

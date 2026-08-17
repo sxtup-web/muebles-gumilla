@@ -38,6 +38,7 @@ colors:
   surface-variant: '#e4e2e0'
   cream-bg: '#F9F7F2'
   paper-surface: '#F1EDE4'
+  surface-warm: '#D9CBB3'
   wood-accent: '#8C7355'
   graphite: '#333333'
 typography:

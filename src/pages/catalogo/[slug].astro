@@ -82,18 +82,41 @@ const productSchema = JSON.stringify({
 
     <div class="flex flex-col lg:flex-row gap-12 lg:gap-20">
       
-      <!-- Galería (Solo 1 foto por ahora para placeholder) -->
-      <div class="w-full lg:w-1/2">
-        <div class="relative w-full max-h-[400px] md:max-h-[500px] lg:max-h-[600px] bg-surface-container rounded-sm overflow-hidden flex items-center justify-center">
-          <Image 
-            src={producto.data.imagenes[0].imagen} 
-            alt={producto.data.imagenes[0].alt} 
-            class="w-full h-full max-h-[400px] md:max-h-[500px] lg:max-h-[600px] object-cover"
-            width={800}
-            height={800}
-            quality={90}
-          />
+      <!-- Galería Carrusel -->
+      <div class="w-full lg:w-1/2 group relative">
+        <div id="carousel-container" class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide rounded-sm bg-surface-variant/30">
+          {producto.data.imagenes.map((img: any, idx: number) => (
+            <div class="flex-none w-full snap-center relative aspect-[4/5] sm:aspect-square md:max-h-[500px] lg:max-h-[600px]">
+              <Image 
+                src={img.imagen} 
+                alt={img.alt || `Imagen ${idx + 1} de ${producto.data.nombre}`} 
+                class="w-full h-full object-cover"
+                width={800}
+                height={800}
+                quality={90}
+              />
+            </div>
+          ))}
         </div>
+        
+        {producto.data.imagenes.length > 1 && (
+          <>
+            <!-- Flechas (Solo desktop, on hover) -->
+            <button id="btn-prev" aria-label="Imagen anterior" class="absolute left-4 top-1/2 -translate-y-1/2 bg-surface/80 hover:bg-surface text-on-background p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hidden lg:flex items-center justify-center shadow-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button id="btn-next" aria-label="Siguiente imagen" class="absolute right-4 top-1/2 -translate-y-1/2 bg-surface/80 hover:bg-surface text-on-background p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hidden lg:flex items-center justify-center shadow-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+            
+            <!-- Puntos indicadores -->
+            <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10 pointer-events-none">
+              {producto.data.imagenes.map((_: any, idx: number) => (
+                <div class={`carousel-dot w-2 h-2 rounded-full transition-colors ${idx === 0 ? 'bg-on-background' : 'bg-outline-variant/60'}`} data-index={idx}></div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
       <!-- Información -->
@@ -159,3 +182,46 @@ const productSchema = JSON.stringify({
     </div>
   </div>
 </BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('carousel-container');
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    const dots = document.querySelectorAll('.carousel-dot');
+    
+    if (!container) return;
+    
+    if (btnPrev && btnNext) {
+      btnPrev.addEventListener('click', () => {
+        container.scrollBy({ left: -container.clientWidth, behavior: 'smooth' });
+      });
+      btnNext.addEventListener('click', () => {
+        container.scrollBy({ left: container.clientWidth, behavior: 'smooth' });
+      });
+    }
+    
+    if (dots.length > 0) {
+      container.addEventListener('scroll', () => {
+        const scrollPos = container.scrollLeft;
+        const slideWidth = container.clientWidth;
+        const activeIndex = Math.round(scrollPos / slideWidth);
+        
+        dots.forEach((dot, idx) => {
+          if (idx === activeIndex) {
+            dot.classList.remove('bg-outline-variant/60');
+            dot.classList.add('bg-on-background');
+          } else {
+            dot.classList.add('bg-outline-variant/60');
+            dot.classList.remove('bg-on-background');
+          }
+        });
+      });
+    }
+  });
+</script>
+
+<style>
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+</style>

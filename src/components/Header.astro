@@ -8,8 +8,9 @@ const isTallerActive = currentPath.startsWith('/sobre-el-taller');
 ---
 <header class="w-full border-b border-outline/10 bg-surface/90 backdrop-blur-md sticky top-0 z-50">
   <div class="max-w-[1440px] mx-auto px-margin-mobile lg:px-margin-desktop h-20 flex items-center justify-between">
-    <a href="/" class="hover:opacity-80 transition-opacity flex items-center">
-      <Image src={logoActual} alt="Muebles Gumilla Logo" height={40} width={40} class="h-10 w-10 object-cover rounded-full" />
+    <a href="/" class="hover:opacity-80 transition-opacity flex items-center gap-3">
+      <Image src={logoActual} alt="Muebles Gumilla Logo" height={40} width={40} class="h-10 w-10 object-cover rounded-full shrink-0" />
+      <span class="font-serif text-lg md:text-xl text-on-background whitespace-nowrap">Muebles Gumilla</span>
     </a>
     
     <nav class="hidden md:flex items-center gap-8">
