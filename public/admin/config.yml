@@ -2,6 +2,8 @@ backend:
   name: git-gateway
   branch: main
 
+locale: 'es'
+
 media_folder: "src/assets/productos"
 public_folder: "../../assets/productos"
 
@@ -19,7 +21,7 @@ collections:
         widget: "object"
         fields:
           - {label: "Imagen", name: "imagen", widget: "image"}
-          - {label: "Alt Text", name: "alt", widget: "string"}
+          - {label: "Texto Alternativo", name: "alt", widget: "string"}
   - name: "productos"
     label: "Productos"
     folder: "src/content/productos"
@@ -27,8 +29,7 @@ collections:
     slug: "{{slug}}"
     identifier_field: "nombre"
     fields:
-      - {label: "Nombre", name: "nombre", widget: "string"}
-      - {label: "Descripción Corta", name: "descripcion_corta", widget: "text"}
+      - {label: "Nombre", name: "nombre", widget: "string", hint: "Nombre público del producto"}
       - label: "Categoría"
         name: "categoria"
         widget: "relation"
@@ -36,24 +37,29 @@ collections:
         search_fields: ["nombre"]
         value_field: "{{slug}}"
         display_fields: ["nombre"]
-      - {label: "Precio Referencial", name: "precio_referencial", widget: "number"}
-      - {label: "Nota de Precio", name: "precio_nota", widget: "string", default: "Precio referencial. Medidas y materiales personalizables — precio final se coordina por WhatsApp"}
-      - label: "Medidas"
-        name: "medidas"
-        widget: "object"
-        fields:
-          - {label: "Alto", name: "alto", widget: "number"}
-          - {label: "Ancho", name: "ancho", widget: "number"}
-          - {label: "Profundidad", name: "profundidad", widget: "number"}
-          - {label: "Unidad", name: "unidad", widget: "string", default: "cm"}
-          - {label: "Personalizable", name: "personalizable", widget: "boolean", default: true}
-      - {label: "Descripción Larga", name: "descripcion_larga", widget: "text"}
-      - {label: "Material", name: "material", widget: "string"}
-      - {label: "Tiempo Fabricación", name: "tiempo_fabricacion_estimado", widget: "string"}
+        hint: "Selecciona la categoría a la que pertenece"
       - label: "Imágenes"
         name: "imagenes"
         widget: "list"
+        summary: '{{fields.imagen}} - {{fields.alt}}'
+        hint: "Sube las fotos del producto. La primera imagen será la principal mostrada en el catálogo."
         fields:
           - {label: "Imagen", name: "imagen", widget: "image"}
-          - {label: "Alt Text", name: "alt", widget: "string"}
-      - {label: "Destacado", name: "destacado", widget: "boolean", default: false}
+          - {label: "Texto Alternativo", name: "alt", widget: "string", hint: "Describe la imagen para accesibilidad y SEO"}
+      - {label: "Descripción Corta", name: "descripcion_corta", widget: "text", hint: "Resumen breve que aparece en la tarjeta del catálogo"}
+      - {label: "Descripción Larga", name: "descripcion_larga", widget: "text", hint: "Descripción detallada del producto."}
+      - label: "Medidas"
+        name: "medidas"
+        widget: "object"
+        hint: "Dimensiones de referencia del mueble."
+        fields:
+          - {label: "Alto", name: "alto", widget: "number", value_type: "float", min: 0.1}
+          - {label: "Ancho", name: "ancho", widget: "number", value_type: "float", min: 0.1}
+          - {label: "Profundidad", name: "profundidad", widget: "number", value_type: "float", min: 0.1}
+          - {label: "Unidad", name: "unidad", widget: "string", default: "cm"}
+          - {label: "Personalizable", name: "personalizable", widget: "boolean", default: true, hint: "¿Se pueden cambiar estas medidas a pedido?"}
+      - {label: "Material", name: "material", widget: "string", hint: "Material principal (ej. Madera sólida de raulí)"}
+      - {label: "Tiempo Fabricación", name: "tiempo_fabricacion_estimado", widget: "string", hint: "Ejemplo: '3 a 4 semanas'"}
+      - {label: "Precio Referencial", name: "precio_referencial", widget: "number", value_type: "int", min: 0, hint: "Ingresa el precio en CLP sin puntos ni símbolo (ej. 150000)"}
+      - {label: "Nota de Precio", name: "precio_nota", widget: "string", default: "Precio referencial. Medidas y materiales personalizables — precio final se coordina por WhatsApp", hint: "Aclaración sobre el precio."}
+      - {label: "Destacado", name: "destacado", widget: "boolean", default: false, hint: "Márcalo para que aparezca en la sección principal del Home"}
