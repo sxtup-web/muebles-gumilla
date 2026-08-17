@@ -3,7 +3,7 @@ import { z, defineCollection, reference } from 'astro:content';
 const categoriasCollection = defineCollection({
   type: 'content',
   schema: ({ image }) => z.object({
-    nombre: z.string(),
+    nombre: z.string().min(1, "El nombre de la categoría es obligatorio"),
     imagen: z.object({
       imagen: image(),
       alt: z.string(),
@@ -14,7 +14,7 @@ const categoriasCollection = defineCollection({
 const productosCollection = defineCollection({
   type: 'content',
   schema: ({ image }) => z.object({
-    nombre: z.string(),
+    nombre: z.string().min(1, "El nombre del producto es obligatorio"),
     descripcion_corta: z.string(),
     categoria: reference('categorias'),
     precio_referencial: z.number(),

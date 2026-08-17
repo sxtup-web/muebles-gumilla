@@ -11,6 +11,7 @@ collections:
     folder: "src/content/categorias"
     create: true
     slug: "{{slug}}"
+    identifier_field: "nombre"
     fields:
       - {label: "Nombre", name: "nombre", widget: "string"}
       - label: "Imagen de Categoría"
@@ -24,6 +25,7 @@ collections:
     folder: "src/content/productos"
     create: true
     slug: "{{slug}}"
+    identifier_field: "nombre"
     fields:
       - {label: "Nombre", name: "nombre", widget: "string"}
       - {label: "Descripción Corta", name: "descripcion_corta", widget: "text"}
