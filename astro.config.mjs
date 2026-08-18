@@ -7,7 +7,6 @@ import vercel from '@astrojs/vercel/serverless';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://mueblesgumilla.com',
-  trailingSlash: 'always',
   output: 'hybrid',
   adapter: vercel(),
   integrations: [tailwind(), sitemap()],
