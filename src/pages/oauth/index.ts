@@ -18,7 +18,7 @@ export async function GET({ request, redirect, cookies }) {
 
     const url = new URL(request.url);
     const host = url.origin;
-    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=repo,user&redirect_uri=${host}/oauth/callback&state=${state}`;
+    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=repo,user&redirect_uri=${host}/oauth/callback/&state=${state}`;
     
     return redirect(githubAuthUrl);
 }

@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Admin - Muebles Gumilla</title>
+  <!-- Fijar el base href para evitar errores de rutas relativas si falta el trailing slash -->
+  <base href="/admin/" />
 </head>
 <body>
   <!-- Incluir la app de Decap CMS -->
@@ -12,6 +14,16 @@
   <!-- Incluir la traducción al español -->
   <script src="https://unpkg.com/decap-cms-locales@3.8.0/dist/decap-cms-locales-es.js"></script>
   <script>
+    // Configuración dinámica para que el admin funcione tanto en el dominio temporal como en producción
+    CMS.init({
+      config: {
+        backend: {
+          base_url: window.location.origin,
+          site_domain: window.location.hostname
+        }
+      }
+    });
+
     CMS.registerLocale('es', decapCmsLocalesEs);
     CMS.registerPreviewStyle('https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css');
     

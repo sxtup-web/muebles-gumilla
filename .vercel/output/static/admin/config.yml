@@ -2,9 +2,9 @@ backend:
   name: github
   repo: sxtup-web/muebles-gumilla
   branch: main
-  auth_endpoint: "/oauth"
-  base_url: "https://mueblesgumilla.com"
-  site_domain: "mueblesgumilla.com"
+  auth_endpoint: "/oauth/"
+  base_url: "https://muebles-gumilla.vercel.app"
+  site_domain: "muebles-gumilla.vercel.app"
 
 locale: 'es'
 

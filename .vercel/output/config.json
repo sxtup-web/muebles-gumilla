@@ -2,6 +2,34 @@
 	"version": 3,
 	"routes": [
 		{
+			"src": "/404",
+			"headers": {
+				"Location": "/404/"
+			},
+			"status": 308
+		},
+		{
+			"src": "/catalogo/([^/]+?)",
+			"headers": {
+				"Location": "/catalogo/$1/"
+			},
+			"status": 308
+		},
+		{
+			"src": "/catalogo(?:\\/(.*?))?",
+			"headers": {
+				"Location": "/catalogo/$1/"
+			},
+			"status": 308
+		},
+		{
+			"src": "/sobre-el-taller",
+			"headers": {
+				"Location": "/sobre-el-taller/"
+			},
+			"status": 308
+		},
+		{
 			"src": "^/_astro/(.*)$",
 			"headers": {
 				"cache-control": "public, max-age=31536000, immutable"
@@ -16,11 +44,11 @@
 			"dest": "_render"
 		},
 		{
-			"src": "^\\/oauth\\/callback\\/?$",
+			"src": "^\\/oauth\\/callback\\/$",
 			"dest": "_render"
 		},
 		{
-			"src": "^\\/oauth\\/?$",
+			"src": "^\\/oauth\\/$",
 			"dest": "_render"
 		},
 		{
