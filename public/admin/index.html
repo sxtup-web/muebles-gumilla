@@ -9,11 +9,13 @@
   <base href="/admin/" />
 </head>
 <body>
+  <script>window.CMS_MANUAL_INIT = true;</script>
   <!-- Incluir la app de Decap CMS -->
   <script src="https://unpkg.com/decap-cms@3.15.1/dist/decap-cms.js"></script>
-  <!-- Incluir la traducción al español -->
-  <script src="https://unpkg.com/decap-cms-locales@3.8.0/dist/decap-cms-locales-es.js"></script>
-  <script>
+  
+  <script type="module">
+    import decapCmsLocalesEs from 'https://unpkg.com/decap-cms-locales@3.8.0/dist/esm/es/index.js';
+
     // Configuración dinámica para que el admin funcione tanto en el dominio temporal como en producción
     CMS.init({
       config: {
