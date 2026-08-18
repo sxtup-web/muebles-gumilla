@@ -10,5 +10,10 @@ export default defineConfig({
   trailingSlash: 'always',
   output: 'hybrid',
   adapter: vercel(),
-  integrations: [tailwind(), sitemap()]
+  integrations: [tailwind(), sitemap()],
+  vite: {
+    ssr: {
+      noExternal: ['cookie']
+    }
+  }
 });
